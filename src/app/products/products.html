@@ -1,0 +1,36 @@
+<section style="padding:20px;">
+  <h2 style="text-align:center;">Makeup Products</h2>
+
+  <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+
+    <div *ngFor="let item of products" class="product-card" 
+         style="border:1px solid #dddddd; padding:15px; width:220px; text-align:center; border-radius:10px;">
+      
+      <img [src]="item.image" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+      <h3>{{ item.name }}</h3>
+      <p>Price: ₱{{ item.price }}</p>
+
+      <div *ngIf="item.available; else outStock">
+        <p style="color: #020202; font-weight: bold;">Available</p>
+        <button (click)="addToCart(item)" 
+                style="background-color:#5e033e; color:white; padding:8px 15px; border:none; cursor:pointer; width:100%;">
+          Add to Cart
+        </button>
+      </div>
+
+      <ng-template #outStock>
+        <p style="color:#000000; font-weight: bold;">Out of Stock</p>
+        <button disabled style="background-color:#e664b9; color:white; padding:8px 15px; border:none; width:100%;">
+          Sold Out
+        </button>
+      </ng-template>
+
+    </div>
+  </div>
+</section>
+
+<div class="cart-summary">
+  <p>🛒 Items: <strong>{{ cartCount }}</strong></p>
+  <p>💰 Total: <strong>₱{{ totalPrice | number:'1.2-2' }}</strong></p>
+</div>
+
